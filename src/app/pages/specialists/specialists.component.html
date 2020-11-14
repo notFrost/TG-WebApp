@@ -1,3 +1,70 @@
 <mat-card>
-  <h1>Specialist</h1>
+  <div class="all-content" fxLayout="row" fxLayoutAlign="center">
+      <!-- Sidebar -->
+      <div class="sidebar" fxFlex="30%">
+        <!-- Menu -->
+        <ul>
+          <li [class.active]="menuOption===0" (click)="menuInteraction(0)"><a href="#Sesiones">Sesiones</a></li>
+          <li [class.active]="menuOption===1" (click)="menuInteraction(1)"><a href="#Clientes">Clientes</a></li>
+        </ul>
+
+        <!-- Opciones para seccion de sesiones -->
+        <button *ngIf="menuOption===0" mat-button color="primary">Crear Sesion</button>
+        <!--<div *ngIf="menuOption===0" class="menu">
+          <mat-form-field color="accent" appearance="fill">
+            <mat-label>Inherited calendar color</mat-label>
+            <input matInput [matDatepicker]="picker1">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>-->
+      </div>
+
+      <!-- Content -->
+      <div class="content" fxFlex="70%">
+        <!-- Sessions -->
+        <div *ngIf="menuOption===0" fxLayout="column"  fxFlex="100%">
+          <h1>Sesiones</h1>
+          <div class="sesiones" fxFlex="100%">
+            <div *ngFor="let sesion of sessionDataSource.data; let i = index" class="sesion">
+              <div class="row">
+                <section>
+                  <h2>{{ sesion.title }} </h2>
+                  <p>{{ sesion.description}}</p>
+                  <footer fxLayout="row" class="footer-sesion">
+                      <div fxLayout="row" fxLayoutAlign="space-between" class="information">
+                        <span>{{sesion.startDate.getHours()}}:{{sesion.startDate.getMinutes()}}</span>
+                        <span class="dia">{{sesion.startDate.toLocaleDateString('es-ES', {weekday: 'long', month: 'long', day: 'numeric'})}}</span>
+                        <span>$ 35</span>
+                      </div>
+                      <button mat-button color="primary">Editar Sesion</button>
+                  </footer>
+                </section>
+              </div>
+              <hr>
+            </div>
+          </div>
+        </div>
+
+        <!-- Clientes -->
+        <div *ngIf="menuOption===1" fxLayout="column" fxFlex="100%">
+          <h1>Clientes</h1>
+          <div class="clientes" fxFlex="100%">
+            <div *ngFor="let cliente of clientDataSource.data; let i = index" class="sesion">
+              <div fxLayout="row" fxLayoutAlign="space-around">
+                <img class="user-image" src="https://via.placeholder.com/100" />
+                <section>
+                  <h2>{{ cliente.name }} </h2>
+                  <p>Descripcion</p>
+                  <footer fxLayoutAlign="flex-end">
+                    <button mat-button color="primary" (click)="openForm(cliente.id, cliente.name)">Crear Rutina</button>
+                  </footer>
+                </section>
+              </div>
+              <hr>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
 </mat-card>
