@@ -52,7 +52,7 @@ div > section{
 }
 
 .footer-sesion > .information{
-  width: 65%;
+  width: 45%;
   max-width: 300px;
   justify-content: space-between;
 }
@@ -62,4 +62,13 @@ div > section{
 
 .dia{
   text-transform: capitalize ;
+}
+
+ul {
+  list-style-type: none;
+}
+
+img{
+  width: 150px;
+  height: 100%;
 }

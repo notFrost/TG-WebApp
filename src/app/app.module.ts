@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SpecialistsComponent, RutinaComponent } from './pages/specialists/specialists.component';
+import { SpecialistsComponent, RutinaComponent, SesionComponent } from './pages/specialists/specialists.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,13 +17,16 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatNativeDateModule } from '@angular/material/core';
+import {TextFieldModule} from '@angular/cdk/text-field';
 
 @NgModule({
   declarations: [
     AppComponent,
     SpecialistsComponent,
-    RutinaComponent
+    RutinaComponent,
+    SesionComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,9 @@ import {MatDialogModule} from '@angular/material/dialog';
     HttpClientModule,
     FlexLayoutModule,
     MatDatepickerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatNativeDateModule,
+    TextFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]

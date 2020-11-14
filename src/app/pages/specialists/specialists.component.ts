@@ -34,40 +34,40 @@ export class SpecialistsComponent implements OnInit, AfterViewInit {
     this.clientDataSource.data = [
       {
         "id": 1,
-        "name": "Maria",
-        "lastname": "Lopez",
-        "description": "Felicidad"
+        "name": "Paula",
+        "lastname": "Perez",
+        "description": "Roll over and sun my belly i like to spend my days sleeping and eating fishes that my human fished for me we live on a luxurious yacht, sailing proudly under the sun, i like to walk on the deck, watching the horizon, dreaming of a good bowl of milk. Sleep on keyboard ignore the squirrels, you'll never catch them anyway so twitch tail in permanent irritation. With tail in the air friends are not food the dog smells bad. "
       },
       {
         "id": 2,
-        "name": "Diego",
-        "lastname": "Pereira",
-        "description": "Felicidad"
+        "name": "Dana",
+        "lastname": "Millares",
+        "description": "Playing with balls of wool love blinks and purr purr purr purr yawn or ptracy get scared by doggo also cucumerro . I cry and cry and cry unless you pet me, and then maybe i cry just for fun run as fast as i can into another room for no reason yet plays league of legends, yet lie on your belly and purr when you are asleep for mrow. Curl into a furry donut human is behind a closed door, emergency! abandoned! meeooowwww!!!"
       },
       {
         "id": 3,
-        "name": "Maria",
-        "lastname": "Lopez",
-        "description": "Felicidad"
+        "name": "Francisco",
+        "lastname": "Mendez",
+        "description": "Swipe at owner's legs favor packaging over toy yet give attitude if it fits i sits cats woo or gimme attention gimme attention gimme attention gimme attention gimme attention gimme attention just kidding i don't want it anymore meow bye sweet beast. Meow meow, i tell my human i want to go outside let me go outside nevermind inside is better. "
       }
     ];
 
     this.sessionDataSource.data = [
       {
         "id": 1,
-        "title": "Compartir en campos",
+        "title": "Levantar Pesas sin problema",
         "startDate": new  Date(2020, 12, 16, 19, 30, 0),
         "description": "cing wafer cheesecake pudding lollipop soufflé candy canes. Carrot cake macaroon sugar plum lollipop marzipan tart. Fruitcake jelly beans jujubes cotton candy. Dessert lemon drops sweet lollipop."
       },
       {
         "id": 2,
-        "title": "Comprar en cupcakes",
+        "title": "Crear rutinas efectivas",
         "startDate": new  Date(2020, 14, 10, 18, 30, 0),
         "description": "cing wafer cheesecake pudding lollipop soufflé candy canes. Carrot cake macaroon sugar plum lollipop marzipan tart. Fruitcake jelly beans jujubes cotton candy. Dessert lemon drops sweet lollipop."
       },
       {
         "id": 3,
-        "title": "Comprar en tortas",
+        "title": "Logra tu meta para este verano",
         "startDate": new Date(),
         "description": "cing wafer cheesecake pudding lollipop soufflé candy canes. Carrot cake macaroon sugar plum lollipop marzipan tart. Fruitcake jelly beans jujubes cotton candy. Dessert lemon drops sweet lollipop."
       }
@@ -91,16 +91,25 @@ export class SpecialistsComponent implements OnInit, AfterViewInit {
     this.dialog.open(RutinaComponent, {
       data: {
         clientName: name,
-        clientId: id,
+        clienteId: id,
         specialistId: 1
       }
     });
   }
 
+  crearSesion(){
+    this.dialog.open(SesionComponent, {
+      data: {
+        specialistNombre: "Carolina",
+      }
+    });
+  }
 }
 
-export interface DialogData {
-  animal: 'panda' | 'unicorn' | 'lion';
+export interface RutinaDialogData {
+  clientName: string;
+  clienteId: number;
+  specialistId: number;
 }
 
 class Rutina {
@@ -110,8 +119,8 @@ class Rutina {
 }
 
 @Component({
-  selector: 'app-rutina-form',
-  templateUrl: './rutinaForm.component.html',
+  selector: 'app-rutina',
+  templateUrl: './rutina.component.html',
 })
 export class RutinaComponent implements OnInit{
   @ViewChild('rutinaForm', { static: false })
@@ -125,9 +134,9 @@ export class RutinaComponent implements OnInit{
   rutinaData: Rutina;
   rutinas: Array<Rutina>;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: RutinaDialogData) {
     this.rutinaData = {} as Rutina;
-    this.clientId = data.clientId;
+    this.clientId = data.clienteId;
     this.clientName = data.clientName;
     this.specialistId = data.specialistId;
   }
@@ -165,3 +174,48 @@ export class RutinaComponent implements OnInit{
   }
 }
 
+
+export interface SesionDialogData {
+  specialistNombre: string;
+}
+
+@Component({
+  selector: 'app-sesion',
+  templateUrl: './sesion.component.html',
+})
+export class SesionComponent implements OnInit{
+  @ViewChild('sesionForm', { static: false })
+  sesionForm: NgForm;
+  sesionData: Session;
+  sesions: Array<Session>;
+  crear: boolean;
+  specialistNombre: string;
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: SesionDialogData) {
+    this.sesionData = {} as Session;
+    this.specialistNombre = data.specialistNombre;
+  }
+
+  ngOnInit(): void {
+    this.crear = true;
+    this.sesions = JSON.parse(localStorage.getItem(JSON.stringify('sesions'))) || [];
+  }
+
+  onSubmit(): void {
+    if (this.sesionForm.form.valid) {
+      this.addSession();
+      this.sesionForm.reset();
+    } else {
+      console.log('Invalid Data');
+    }
+  }
+  addSession(): void{
+    localStorage.setItem('sesions', JSON.stringify({}));
+  }
+  editarSesion(): void{
+
+  }
+  deleteSession(index: number): void{
+    localStorage.setItem('sesions', JSON.stringify({}));
+  }
+}
