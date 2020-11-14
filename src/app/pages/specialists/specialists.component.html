@@ -4,12 +4,16 @@
       <div class="sidebar" fxFlex="30%">
         <!-- Menu -->
         <ul>
-          <li [class.active]="menuOption===0" (click)="menuInteraction(0)"><a href="#Sesiones">Sesiones</a></li>
-          <li [class.active]="menuOption===1" (click)="menuInteraction(1)"><a href="#Clientes">Clientes</a></li>
+          <li [class.active]="menuOption===0" (click)="menuInteraction(0)">
+            <a mat-button href="#Sesiones">Sesiones</a>
+          </li>
+          <li [class.active]="menuOption===1" (click)="menuInteraction(1)">
+            <a mat-button href="#Clientes">Clientes</a>
+          </li>
         </ul>
 
         <!-- Opciones para seccion de sesiones -->
-        <button *ngIf="menuOption===0" mat-button color="primary">Crear Sesion</button>
+        <button *ngIf="menuOption===0" mat-button color="primary" (click)="crearSesion()">Crear Sesion</button>
         <!--<div *ngIf="menuOption===0" class="menu">
           <mat-form-field color="accent" appearance="fill">
             <mat-label>Inherited calendar color</mat-label>
@@ -35,7 +39,6 @@
                       <div fxLayout="row" fxLayoutAlign="space-between" class="information">
                         <span>{{sesion.startDate.getHours()}}:{{sesion.startDate.getMinutes()}}</span>
                         <span class="dia">{{sesion.startDate.toLocaleDateString('es-ES', {weekday: 'long', month: 'long', day: 'numeric'})}}</span>
-                        <span>$ 35</span>
                       </div>
                       <button mat-button color="primary">Editar Sesion</button>
                   </footer>
@@ -52,10 +55,10 @@
           <div class="clientes" fxFlex="100%">
             <div *ngFor="let cliente of clientDataSource.data; let i = index" class="sesion">
               <div fxLayout="row" fxLayoutAlign="space-around">
-                <img class="user-image" src="https://via.placeholder.com/100" />
+                <img class="user-image" fxLayoutAlign="center" src="https://via.placeholder.com/150" />
                 <section>
                   <h2>{{ cliente.name }} </h2>
-                  <p>Descripcion</p>
+                  <p>{{ cliente.description }}</p>
                   <footer fxLayoutAlign="flex-end">
                     <button mat-button color="primary" (click)="openForm(cliente.id, cliente.name)">Crear Rutina</button>
                   </footer>
