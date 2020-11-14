@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpDataService } from './http-data.service';
 
 describe('HttpDataService', () => {
-  const service: HttpDataService;
+  let service: HttpDataService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});

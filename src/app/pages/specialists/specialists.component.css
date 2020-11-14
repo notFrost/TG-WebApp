@@ -1,0 +1,65 @@
+mat-card{
+  display: flex;
+  justify-content: center;
+}
+
+.all-content{
+  width: 99%;
+  max-width: 1000px;
+}
+
+mat-form-field {
+  margin-right: 12px;
+}
+
+mat-grid-list{
+  height: 100%;
+}
+
+.row{
+  display: flex;
+  flex-direction: row;
+}
+
+.content{
+  display: flex;
+}
+
+.menu{
+  display: flex;
+  flex-direction: column;
+}
+
+.active{
+  color: green;
+}
+
+.content .ng-star-inserted {
+  width: 100%;
+}
+
+.inside-content{
+  width: 100%;
+}
+
+div > section{
+  width: 100%;
+}
+.footer-sesion{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-sesion > .information{
+  width: 65%;
+  max-width: 300px;
+  justify-content: space-between;
+}
+.user-image{
+  margin: 5px 10px;
+}
+
+.dia{
+  text-transform: capitalize ;
+}

@@ -1,0 +1,24 @@
+{"data": [
+    {
+      "id": 1,
+      "name": "Maria",
+      "lastname": "Lopez",
+      "description": "Felicidad",
+      "rutinas": []
+    },
+    {
+      "id": 2,
+      "name": "Diego",
+      "lastname": "Pereira",
+      "description": "Felicidad",
+      "rutinas": []
+    },
+    {
+      "id": 3,
+      "name": "Maria",
+      "lastname": "Lopez",
+      "description": "Felicidad",
+      "rutinas": []
+    }
+  ]
+}

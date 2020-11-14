@@ -9,7 +9,7 @@ import {catchError, retry} from 'rxjs/operators';
 })
 export class HttpDataService {
   // Specialist Endpoint
-  basePath = 'http://localhost:3000/api/specialist';
+  basePath = 'http://localhost:8080/api';
   constructor(private http: HttpClient) { }
   // Http Default Options
   httpOptions = {
@@ -34,12 +34,17 @@ export class HttpDataService {
   }
   // Get Specialist by Id
   getItem(id): Observable<Specialist> {
-    return this.http.get<Specialist>(`${this.basePath}/${id}`, this.httpOptions )
+    return this.http.get<Specialist>(`${this.basePath}/specialists/${1}/customers`, this.httpOptions )
       .pipe(retry(2), catchError(this.handleError));
   }
   // Get Specialist Data
   getList(): Observable<Specialist>{
-    return this.http.get<Specialist>(this.basePath)
+    return this.http.get<Specialist>(`${this.basePath}/specialists/${1}/customers`)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+
+  getUser(): Observable<Specialist>{
+    return this.http.get<Specialist>(`${this.basePath}/specialists/${1}/customers`)
       .pipe(retry(2), catchError(this.handleError));
   }
 }

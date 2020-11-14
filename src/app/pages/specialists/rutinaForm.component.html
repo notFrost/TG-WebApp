@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Agregar una rutina para {{ clientName }}</h1>
+<div mat-dialog-content fxLayoutAlign="flex-end" fxLayout="column">
+    <div *ngFor="let rutina of rutinas; let i = index" class="rutina" fxLayout="row" fxLayoutAlign="space-between" >
+      <p>{{ rutina.description }}</p>
+      <button  mat-button color="primary" (click)="deleteRutina(i)">Borrar</button>
+    </div>
+    <form (submit)="onSubmit()"  #rutinaForm="ngForm" fxLayoutAlign="space-between">
+      <mat-form-field >
+        <input matInput placeholder="Rutina" name="rutina" required [(ngModel)]="rutinaData.description">
+      </mat-form-field>
+      <button mat-button color="primary">Agregar</button>
+    </form>
+    <button  mat-dialog-close mat-button color="secondary">Cerrar</button>
+</div>
