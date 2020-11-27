@@ -15,64 +15,40 @@ import * as _ from 'lodash';
   styleUrls: ['./specialists.component.css']
 })
 export class SpecialistsComponent implements OnInit, AfterViewInit {
-  @ViewChild('specialistForm', { static: false })
-  specialistForm: NgForm;
-  sessionData: Specialist;
   clientDataSource = new MatTableDataSource();
   sessionDataSource = new MatTableDataSource();
   menuOption = 0;
-  displayedColumns: string[] = ['id', 'name', 'age', 'address', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private httpDataService: HttpDataService, public dialog: MatDialog) {
-    this.sessionData = {} as Specialist;
   }
 
   ngOnInit(): void {
     this.menuOption = 0;
     this.clientDataSource.data = [
       {
-        "id": 1,
-        "name": "Paula",
-        "lastname": "Perez",
-        "description": "Roll over and sun my belly i like to spend my days sleeping and eating fishes that my human fished for me we live on a luxurious yacht, sailing proudly under the sun, i like to walk on the deck, watching the horizon, dreaming of a good bowl of milk. Sleep on keyboard ignore the squirrels, you'll never catch them anyway so twitch tail in permanent irritation. With tail in the air friends are not food the dog smells bad. "
+        id: 1,
+        name: 'Paula',
+        lastname: 'Perez',
+        description: 'Roll over and sun my belly i like to spend my days sleeping and eating fishes that my human fished for me we live on a luxurious yacht, sailing proudly under the sun, i like to walk on the deck, watching the horizon, dreaming of a good bowl of milk. Sleep on keyboard ignore the squirrels, you\'ll never catch them anyway so twitch tail in permanent irritation. With tail in the air friends are not food the dog smells bad.'
       },
       {
-        "id": 2,
-        "name": "Dana",
-        "lastname": "Millares",
-        "description": "Playing with balls of wool love blinks and purr purr purr purr yawn or ptracy get scared by doggo also cucumerro . I cry and cry and cry unless you pet me, and then maybe i cry just for fun run as fast as i can into another room for no reason yet plays league of legends, yet lie on your belly and purr when you are asleep for mrow. Curl into a furry donut human is behind a closed door, emergency! abandoned! meeooowwww!!!"
+        id: 2,
+        name: 'Dana',
+        lastname: 'Millares',
+        description: 'Playing with balls of wool love blinks and purr purr purr purr yawn or ptracy get scared by doggo also cucumerro . I cry and cry and cry unless you pet me, and then maybe i cry just for fun run as fast as i can into another room for no reason yet plays league of legends, yet lie on your belly and purr when you are asleep for mrow. Curl into a furry donut human is behind a closed door, emergency! abandoned! meeooowwww!!!'
       },
       {
-        "id": 3,
-        "name": "Francisco",
-        "lastname": "Mendez",
-        "description": "Swipe at owner's legs favor packaging over toy yet give attitude if it fits i sits cats woo or gimme attention gimme attention gimme attention gimme attention gimme attention gimme attention just kidding i don't want it anymore meow bye sweet beast. Meow meow, i tell my human i want to go outside let me go outside nevermind inside is better. "
+        id: 3,
+        name: 'Francisco',
+        lastname: 'Mendez',
+        description: 'Swipe at owner\'s legs favor packaging over toy yet give attitude if it fits i sits cats woo or gimme attention gimme attention gimme attention gimme attention gimme attention gimme attention just kidding i don\'t want it anymore meow bye sweet beast. Meow meow, i tell my human i want to go outside let me go outside nevermind inside is better.'
       }
     ];
 
-    this.sessionDataSource.data = [
-      {
-        "id": 1,
-        "title": "Levantar Pesas sin problema",
-        "startDate": new  Date(2020, 12, 16, 19, 30, 0),
-        "description": "cing wafer cheesecake pudding lollipop soufflé candy canes. Carrot cake macaroon sugar plum lollipop marzipan tart. Fruitcake jelly beans jujubes cotton candy. Dessert lemon drops sweet lollipop."
-      },
-      {
-        "id": 2,
-        "title": "Crear rutinas efectivas",
-        "startDate": new  Date(2020, 14, 10, 18, 30, 0),
-        "description": "cing wafer cheesecake pudding lollipop soufflé candy canes. Carrot cake macaroon sugar plum lollipop marzipan tart. Fruitcake jelly beans jujubes cotton candy. Dessert lemon drops sweet lollipop."
-      },
-      {
-        "id": 3,
-        "title": "Logra tu meta para este verano",
-        "startDate": new Date(),
-        "description": "cing wafer cheesecake pudding lollipop soufflé candy canes. Carrot cake macaroon sugar plum lollipop marzipan tart. Fruitcake jelly beans jujubes cotton candy. Dessert lemon drops sweet lollipop."
-      }
-    ];
-    this.sessionDataSource.data = this.sessionDataSource.data.sort((a: Session, b: Session) => b.startDate - a.startDate);
+    this.getSessionsSpecialistList();
+    this.sessionDataSource.data = this.sessionDataSource.data.sort((a: Session, b: Session) => b.date - a.date);
   }
   ngAfterViewInit(): void {
     this.clientDataSource.paginator = this.paginator;
@@ -87,20 +63,59 @@ export class SpecialistsComponent implements OnInit, AfterViewInit {
       this.clientDataSource.data = response.content;
     });
   }
-  openForm(id: number, name: string): void {
-    this.dialog.open(RutinaComponent, {
+  getSessionsSpecialistList(): void {
+    this.httpDataService.getSessionsBySpecialist(1).subscribe((response: any) => {
+      console.log(response.content);
+      this.sessionDataSource.data = response.content;
+      this.sessionDataSource.data.map((e: Session) => e.date = new Date(e.date));
+    });
+  }
+
+  createForm(id: number, name: string): void {
+    this.dialog.open(RutinaDigComponent, {
       data: {
         clientName: name,
-        clienteId: id,
+        clientId: id,
         specialistId: 1
       }
     });
   }
-
-  crearSesion(){
-    this.dialog.open(SesionComponent, {
+  //this.sessionDataSource.data[index].title
+  editSession(id: number, index: number): void {
+    // @ts-ignore
+    this.dialog.open(SessionDigComponent, {
       data: {
-        specialistNombre: "Carolina",
+        title: 'title11',
+
+        description: 'description11',
+        date: new Date(),
+        specialistId: 1,
+        sessionId: id,
+        type: 0
+      }
+    });
+  }
+  createSession(): void{
+    this.dialog.open(SessionDigComponent, {
+      data: {
+        title: '',
+        description: '',
+        date: new Date(),
+        specialistId: 1,
+        sessionId: -1,
+        type: 1,
+      }
+    });
+  }
+  deleteSession(id: number): void{
+    this.dialog.open(SessionDigComponent, {
+      data: {
+        title: '',
+        description: '',
+        date: new Date(),
+        specialistId: 1,
+        sessionId: id,
+        type: 2
       }
     });
   }
@@ -108,7 +123,7 @@ export class SpecialistsComponent implements OnInit, AfterViewInit {
 
 export interface RutinaDialogData {
   clientName: string;
-  clienteId: number;
+  clientId: number;
   specialistId: number;
 }
 
@@ -119,16 +134,16 @@ class Rutina {
 }
 
 @Component({
-  selector: 'app-rutina',
+  selector: 'app-diag-rutina',
   templateUrl: './rutina.component.html',
 })
-export class RutinaComponent implements OnInit{
+export class RutinaDigComponent implements OnInit{
   @ViewChild('rutinaForm', { static: false })
   rutinaForm: NgForm;
   clientId: number;
   specialistId: number;
   clientName: string;
-  userData:{
+  userData: {
     rutinas: Array<Rutina>;
   };
   rutinaData: Rutina;
@@ -136,7 +151,7 @@ export class RutinaComponent implements OnInit{
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: RutinaDialogData) {
     this.rutinaData = {} as Rutina;
-    this.clientId = data.clienteId;
+    this.clientId = data.clientId;
     this.clientName = data.clientName;
     this.specialistId = data.specialistId;
   }
@@ -162,7 +177,6 @@ export class RutinaComponent implements OnInit{
     this.rutinas.push(_.cloneDeep(this.rutinaData));
     this.userData.rutinas = this.rutinas;
     localStorage.setItem(JSON.stringify(this.clientId), JSON.stringify(this.userData));
-    console.log('Rutina Agregada', this.rutinaData);
   }
 
   deleteRutina(index: number): void{
@@ -170,52 +184,76 @@ export class RutinaComponent implements OnInit{
     this.userData.rutinas = this.rutinas;
 
     localStorage.setItem(JSON.stringify(this.clientId), JSON.stringify(this.userData));
-    console.log('Rutina Borrada', this.rutinaData);
   }
 }
 
-
-export interface SesionDialogData {
-  specialistNombre: string;
+export interface SessionDialogData {
+  title: string;
+  description: string;
+  date: Date;
+  specialistId: number;
+  sessionId: number;
+  type: number;
 }
 
 @Component({
-  selector: 'app-sesion',
-  templateUrl: './sesion.component.html',
+  selector: 'app-diag-session',
+  templateUrl: './session.component.html',
 })
-export class SesionComponent implements OnInit{
-  @ViewChild('sesionForm', { static: false })
-  sesionForm: NgForm;
-  sesionData: Session;
-  sesions: Array<Session>;
-  crear: boolean;
-  specialistNombre: string;
+export class SessionDigComponent implements OnInit{
+  @ViewChild('sessionForm', { static: false })
+  sessionForm: NgForm;
+  sessionData: Session;
+  sessionId: number;
+  sessions: Array<Session>;
+  create: boolean;
+  delete: boolean;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: SesionDialogData) {
-    this.sesionData = {} as Session;
-    this.specialistNombre = data.specialistNombre;
+  constructor(@Inject(MAT_DIALOG_DATA) public data: SessionDialogData, private httpDataService: HttpDataService) {
+    console.log(data);
+    this.sessionData = {
+      title: data.title,
+      description: data.description,
+      date: new Date()
+    };
+    this.sessionId = data.sessionId;
+    this.create = data.sessionId === -1;
+    this.delete = data.type === 2;
   }
 
   ngOnInit(): void {
-    this.crear = true;
-    this.sesions = JSON.parse(localStorage.getItem(JSON.stringify('sesions'))) || [];
+    this.delete = this.delete;
   }
 
   onSubmit(): void {
-    if (this.sesionForm.form.valid) {
-      this.addSession();
-      this.sesionForm.reset();
+    if (this.sessionForm.form.valid) {
+      if (this.create){
+        this.addSession();
+      }
+      else{
+        this.editSession();
+      }
+      this.sessionForm.reset();
     } else {
       console.log('Invalid Data');
     }
   }
-  addSession(): void{
-    localStorage.setItem('sesions', JSON.stringify({}));
-  }
-  editarSesion(): void{
 
+  addSession(): void {
+    console.log(this.sessionData.date);
+    const newSession = { title: this.sessionData.title, description: this.sessionData.description, date: this.sessionData.date};
+    this.httpDataService.createSession(newSession, 1).subscribe((response: any) => {
+      console.log(response.content);
+    });
   }
-  deleteSession(index: number): void{
-    localStorage.setItem('sesions', JSON.stringify({}));
+  editSession(): void {
+    console.log(this.sessionData.date);
+    const editSession = { title: this.sessionData.title, description: this.sessionData.description, date: this.sessionData.date};
+    this.httpDataService.editSession(editSession, 1, this.sessionId).subscribe((response: any) => {
+      console.log(response.content);
+    });
+  }
+  deleteSession(): void{
+    this.httpDataService.deleteSession(1, this.sessionId).subscribe((response: any) => {});
   }
 }

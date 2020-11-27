@@ -7,17 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'TG-WebApp';
-  cliente: boolean;
-  seleccionado: boolean;
+  selected: boolean;
 
   constructor(){
-    this.seleccionado = false;
+    this.selected = false;
   }
-  setView(valor: boolean): void{
-    this.seleccionado = true;
-    this.cliente = valor;
-  }
-  setSeleccion(valor:boolean): void{
-    this.seleccionado = false;
+  setSelect(valor: boolean): void{
+    this.selected = false;
   }
 }

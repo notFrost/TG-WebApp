@@ -13,7 +13,7 @@
         </ul>
 
         <!-- Opciones para seccion de sesiones -->
-        <button *ngIf="menuOption===0" mat-button color="primary" (click)="crearSesion()">Crear Sesion</button>
+        <button *ngIf="menuOption===0" mat-button color="primary" (click)="createSession()">Crear Sesion</button>
         <!--<div *ngIf="menuOption===0" class="menu">
           <mat-form-field color="accent" appearance="fill">
             <mat-label>Inherited calendar color</mat-label>
@@ -30,17 +30,20 @@
         <div *ngIf="menuOption===0" fxLayout="column"  fxFlex="100%">
           <h1>Sesiones</h1>
           <div class="sesiones" fxFlex="100%">
-            <div *ngFor="let sesion of sessionDataSource.data; let i = index" class="sesion">
+            <div *ngFor="let session of sessionDataSource.data; let i = index" class="sesion">
               <div class="row">
                 <section>
-                  <h2>{{ sesion.title }} </h2>
-                  <p>{{ sesion.description}}</p>
+                 <a [routerLink] = "['/session', session.id]"><h2>{{ session.title }} </h2></a>
+                  <p>{{ session.description}}</p>
                   <footer fxLayout="row" class="footer-sesion">
                       <div fxLayout="row" fxLayoutAlign="space-between" class="information">
-                        <span>{{sesion.startDate.getHours()}}:{{sesion.startDate.getMinutes()}}</span>
-                        <span class="dia">{{sesion.startDate.toLocaleDateString('es-ES', {weekday: 'long', month: 'long', day: 'numeric'})}}</span>
+                        <span>{{session.date.getHours()}}:{{session.date.getMinutes()}}</span>
+                        <span class="dia">{{session.date.toLocaleDateString('es-ES', {weekday: 'long', month: 'long', day: 'numeric'})}}</span>
                       </div>
-                      <button mat-button color="primary">Editar Sesion</button>
+                    <div>
+                      <button mat-button color="primary" (click)="editSession(session.id, i)">Editar Sesion</button>
+                      <button mat-button color="warn" (click)="deleteSession(session.id)">Borrar Sesion</button>
+                    </div>
                   </footer>
                 </section>
               </div>
@@ -60,7 +63,7 @@
                   <h2>{{ cliente.name }} </h2>
                   <p>{{ cliente.description }}</p>
                   <footer fxLayoutAlign="flex-end">
-                    <button mat-button color="primary" (click)="openForm(cliente.id, cliente.name)">Crear Rutina</button>
+                    <button mat-button color="primary" (click)="createForm(cliente.id, cliente.name)">Crear Rutina</button>
                   </footer>
                 </section>
               </div>

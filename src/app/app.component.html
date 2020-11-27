@@ -9,19 +9,10 @@
 
 <!--Toolbar -->
 <mat-toolbar color="primary">
-  <span class="logo" (click)="setSeleccion(false)">Training Gain</span>
+  <span class="logo" (click)="setSelect(false)">Training Gain</span>
 </mat-toolbar>
-<div *ngIf="!seleccionado" class="home" >
-  <h1 class="titulo" fxLayoutAlign="center">Como desea ingresar hoy?</h1>
-  <div fxLayoutAlign="center" >
-    <button mat-button color="primary" (click)="setView(false)">Como Especialistas</button>
-    <button mat-button color="accent" (click)="setView(true)">Como Cliente</button>
-  </div>
-</div>
-<app-specialists *ngIf = "!cliente && seleccionado"></app-specialists>
-<div *ngIf = "cliente && seleccionado" fxFill>
-  <h1 fxLayoutAlign="center">Seccion de Clientes</h1>
-</div>
+<router-outlet></router-outlet>
+
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
 <!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->

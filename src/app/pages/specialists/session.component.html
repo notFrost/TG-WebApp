@@ -1,0 +1,21 @@
+<h1 *ngIf="create&&!delete">Crear sesion</h1>
+<h1 *ngIf="!create&&!delete" mat-dialog-title>Editar sesion</h1>
+<h1 *ngIf="delete" mat-dialog-title>Borrar sesion</h1>
+
+<div mat-dialog-content fxLayoutAlign="flex-end" fxLayout="column">
+  <form *ngIf="!delete"  (submit)="onSubmit()"  #sessionForm="ngForm" fxLayoutAlign="space-between">
+    <mat-form-field >
+      <input matInput placeholder="Titulo" name="titulo" required [(ngModel)]="sessionData.title">
+    </mat-form-field>
+    <mat-form-field >
+      <input matInput placeholder="Descripcion" name="descripcion" required [(ngModel)]="sessionData.description">
+    </mat-form-field>
+    <mat-form-field color="accent" appearance="fill">
+      <mat-label>Indique fecha</mat-label>
+      <input matInput type="datetime-local" name="date" placeholder="Indique fecha" required [(ngModel)]="sessionData.date">
+    </mat-form-field>
+    <button mat-button color="primary">Agregar</button>
+  </form>
+  <button *ngIf="delete" mat-dialog-close mat-button color="primary" (click)="deleteSession()">Confirmar</button>
+  <button  mat-dialog-close mat-button color="secondary">Cerrar</button>
+</div>

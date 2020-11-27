@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SpecialistsComponent, RutinaComponent, SesionComponent } from './pages/specialists/specialists.component';
+import { SpecialistsComponent, RutinaDigComponent, SessionDigComponent } from './pages/specialists/specialists.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,13 +20,28 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatNativeDateModule } from '@angular/material/core';
 import {TextFieldModule} from '@angular/cdk/text-field';
+import { Routes, RouterModule } from '@angular/router';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import {SessionComponent} from './pages/session/session.component';
+import { LoginComponent } from './pages/login/login.component';
+import { HomeComponent } from './home/home.component';
+
+const routes: Routes = [
+  {path: '', pathMatch: 'full', redirectTo: 'home'},
+  {path: 'home', component: HomeComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'session/:id', component: SessionComponent}
+  ];
 
 @NgModule({
   declarations: [
     AppComponent,
     SpecialistsComponent,
-    RutinaComponent,
-    SesionComponent
+    RutinaDigComponent,
+    SessionDigComponent,
+    SessionComponent,
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -46,8 +61,12 @@ import {TextFieldModule} from '@angular/cdk/text-field';
     MatDatepickerModule,
     MatDialogModule,
     MatNativeDateModule,
-    TextFieldModule
+    TextFieldModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    RouterModule.forRoot(routes)
   ],
+  exports: [RouterModule],
   providers: [],
   bootstrap: [AppComponent]
 })
