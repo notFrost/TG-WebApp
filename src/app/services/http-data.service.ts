@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {Specialist} from '../models/specialist';
+import { Session } from '../models/session';
 import {catchError, retry} from 'rxjs/operators';
 
 @Injectable({
@@ -45,6 +46,23 @@ export class HttpDataService {
 
   getUser(): Observable<Specialist>{
     return this.http.get<Specialist>(`${this.basePath}/specialists/${1}/customers`)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+
+  getSessionsBySpecialist(specialistId: number): Observable<Session> {
+    return this.http.get<Session>(`${this.basePath}/specialists/${specialistId}/sessions`)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+  createSession(item: Session, specialistId: number): Observable<Session> {
+    return this.http.post<Session>(`${this.basePath}/specialists/${specialistId}/sessions`, JSON.stringify(item), this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+  editSession(item: Session, specialistId: number, sessionId: number ): Observable<Session> {
+    return this.http.put<Session>(`${this.basePath}/specialists/${specialistId}/sessions/${sessionId}`, JSON.stringify(item), this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+  deleteSession(specialistId: number, sessionId: number ): Observable<Session> {
+    return this.http.delete<Session>(`${this.basePath}/specialists/${specialistId}/sessions/${sessionId}`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
 }

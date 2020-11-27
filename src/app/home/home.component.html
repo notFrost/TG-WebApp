@@ -1,0 +1,11 @@
+<div *ngIf="!selected" class="home" >
+  <h1 class="titulo" fxLayoutAlign="center">Como desea ingresar hoy?</h1>
+  <div fxLayoutAlign="center" >
+    <button mat-button color="primary" (click)="setView(false)">Como Especialistas</button>
+    <button mat-button color="accent" (click)="setView(true)">Como Cliente</button>
+  </div>
+</div>
+<app-specialists *ngIf = "!client && selected"></app-specialists>
+<div *ngIf = "client && selected" fxFill>
+  <h1 fxLayoutAlign="center">Seccion de Clientes</h1>
+</div>
