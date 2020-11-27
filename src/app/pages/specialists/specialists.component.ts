@@ -80,13 +80,12 @@ export class SpecialistsComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  //this.sessionDataSource.data[index].title
+
   editSession(id: number, index: number): void {
     // @ts-ignore
     this.dialog.open(SessionDigComponent, {
       data: {
         title: 'title11',
-
         description: 'description11',
         date: new Date(),
         specialistId: 1,
