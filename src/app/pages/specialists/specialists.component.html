@@ -33,8 +33,8 @@
             <div *ngFor="let session of sessionDataSource.data; let i = index" class="sesion">
               <div class="row">
                 <section>
-                 <a [routerLink] = "['/session', session.id]"><h2>{{ session.title }} </h2></a>
-                  <p>{{ session.description }}</p>
+                 <a [routerLink] = "['/session', session.id]"><h2>{{ session.title }} </h2>
+                  <p>{{ session.description }}</p></a>
                   <footer fxLayout="row" class="footer-sesion">
                       <div fxLayout="row" fxLayoutAlign="space-between" class="information">
                         <span>{{session.date.getHours()}}:{{session.date.getMinutes()}}</span>

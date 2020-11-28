@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {Router} from '@angular/router';
+import {UserStorageService} from './services/user-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ export class AppComponent {
   selected: boolean;
 
   constructor(
+    private userStorageService: UserStorageService,
     private router: Router
   ){
     this.selected = false;
@@ -18,5 +20,11 @@ export class AppComponent {
   setSelect(valor: boolean): void{
     this.selected = false;
     this.router.navigate(['/']);
+  }
+
+  logOut(): void {
+    this.userStorageService.destroy()
+    this.router.navigate(['/login']);
+
   }
 }
