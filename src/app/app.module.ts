@@ -24,13 +24,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import {SessionComponent} from './pages/session/session.component';
 import { LoginComponent } from './pages/login/login.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './pages/home/home.component';
+import {AuthGuard} from './guards/auth.guard';
 
 const routes: Routes = [
-  {path: '', pathMatch: 'full', redirectTo: 'home'},
-  {path: 'home', component: HomeComponent},
+  {path: '', pathMatch: 'full',component: HomeComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
-  {path: 'session/:id', component: SessionComponent}
+  {path: 'session/:id', component: SessionComponent, canActivate: [AuthGuard]}
   ];
 
 @NgModule({

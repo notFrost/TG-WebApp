@@ -1,23 +1,41 @@
-import {Component, Output, EventEmitter, ViewChild} from '@angular/core';
-import {FormGroup, FormControl, NgForm} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import {Login} from '../../models/login.model';
+import {SessionUser} from '../../models/session-user.model';
+import {Router} from '@angular/router';
+import {UserStorageService} from '../../services/user-storage.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
-  @ViewChild('sessionForm', { static: false })
+export class LoginComponent implements OnInit {
 
-  loginForm: NgForm;
-  loginData: {
-    user: string;
-    password: string;
-  };
+  public model: Login=new Login();
+  public invalid:boolean;
+  public user = new SessionUser()
+  public register:boolean=false;
+  public validRegister:boolean=false;
 
-  submit(): void {
-    if (this.loginForm.valid) {
-      console.log(this.loginData);
-    }
+  constructor(
+    private userStorageService: UserStorageService,
+    private router: Router
+  ) { 
+    this.register = false;
+  }
+  ngOnInit():void{
+
+  }
+  
+  changeTypeOfForm(type: boolean):void {
+    this.register = type;
+    this.onSubmit();
+  }
+
+  onSubmit(): void {
+    let self = this;
+    
+    self.userStorageService.set(self.model);
+    self.router.navigate(['/']);
   }
 }

@@ -1,16 +1,71 @@
-<mat-card>
-  <mat-card-title>Iniciar Sesion</mat-card-title>
-  <mat-card-content>
-    <form #loginForm="ngForm" (ngSubmit)="submit()">
-      <mat-form-field >
-        <input matInput placeholder="Username" name="username" required [(ngModel)]="loginData.user">
-      </mat-form-field>
-      <mat-form-field >
-        <input  type="password" matInput placeholder="Password" name="password" required [(ngModel)]="loginData.password">
-      </mat-form-field>
-      <p class="button">
-        <button type="submit" mat-button>Login</button>
-      </p>
-    </form>
-  </mat-card-content>
-</mat-card>
+<div class="container">
+  <div class="columns is-centered">
+    <div class="column is-6-tablet is-5-desktop is-4-widescreen">
+      <div *ngIf="invalid" class="notification is-danger has-text-centered">
+        Las credenciales ingresadas son inválidas.
+      </div>
+      <div *ngIf="validRegister" class="notification is-info has-text-centered">
+        Su registro a sido correcto! Inicie Sesion.
+      </div>
+
+      <div class="box">
+        <h2 class="is-size-2 has-text-centered">Iniciar Sesion</h2>
+        <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" 
+                      name="inlineRadioOptions" id="inlineRadio1" 
+                      value="specialist"    [(ngModel)]="model.type">
+              <label class="form-check-label" for="inlineRadio1">Specialist</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" 
+                      name="inlineRadioOptions" id="inlineRadio2" 
+                      value="customer"  [(ngModel)]="model.type">
+              <label class="form-check-label" for="inlineRadio2">Customer</label>
+            </div>          
+          </div>
+          <div class="field">
+            <label for="" class="label">Username</label>
+            <div class="control has-icons-left">
+              <input required name="username" type="text"
+                    placeholder="admin@upc.pe" class="input"
+                    [(ngModel)]="model.username" #email="ngModel" >
+              <span class="icon is-small is-left">
+                  <i class="fa fa-envelope"></i>
+            </span>
+            </div>
+            <ng-container *ngIf="email.invalid && email.dirty">
+              <span class="help is-danger">El campo e-mail es requerido.</span>
+            </ng-container>
+          </div>
+
+          <div class="field">
+            <label for="" class="label">Password</label>
+            <div class="control has-icons-left">
+              <input required name="password" type="password"
+                    placeholder="123456" class="input"
+                    [(ngModel)]="model.password" #password="ngModel">
+              <span class="icon is-small is-left">
+                              <i class="fa fa-lock"></i>
+              </span>
+            </div>
+            <ng-container *ngIf="password.invalid && password.dirty">
+              <span class="help is-danger">El campo password es requerido.</span>
+            </ng-container>
+          </div>
+          <div class="field">
+            <button [disabled]="!loginForm.form.valid" class="button is-success is-fullwidth">
+              {{"Iniciar Sesion"}}
+            </button>
+          </div>
+        </form>
+        <div class="btn-container">
+          <button (click)="changeTypeOfForm(true)" class="button is-info">
+            {{"Registrarme"}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

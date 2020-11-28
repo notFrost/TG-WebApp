@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +10,13 @@ export class AppComponent {
   title = 'TG-WebApp';
   selected: boolean;
 
-  constructor(){
+  constructor(
+    private router: Router
+  ){
     this.selected = false;
   }
   setSelect(valor: boolean): void{
     this.selected = false;
+    this.router.navigate(['/']);
   }
 }

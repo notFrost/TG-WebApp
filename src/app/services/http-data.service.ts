@@ -10,7 +10,7 @@ import {catchError, retry} from 'rxjs/operators';
 })
 export class HttpDataService {
   // Specialist Endpoint
-  basePath = 'http://localhost:8080/api';
+  basePath = 'http://opense-tg-api.herokuapp.com/api';
   constructor(private http: HttpClient) { }
   // Http Default Options
   httpOptions = {
@@ -58,6 +58,7 @@ export class HttpDataService {
       .pipe(retry(2), catchError(this.handleError));
   }
   editSession(item: Session, specialistId: number, sessionId: number ): Observable<Session> {
+    console.log(item)
     return this.http.put<Session>(`${this.basePath}/specialists/${specialistId}/sessions/${sessionId}`, JSON.stringify(item), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }

@@ -15,7 +15,7 @@ import * as _ from 'lodash';
   styleUrls: ['./specialists.component.css']
 })
 export class SpecialistsComponent implements OnInit, AfterViewInit {
-  clientDataSource = new MatTableDataSource();
+  clientDataSource: any = new MatTableDataSource();
   sessionDataSource = new MatTableDataSource();
   menuOption = 0;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -85,8 +85,8 @@ export class SpecialistsComponent implements OnInit, AfterViewInit {
     // @ts-ignore
     this.dialog.open(SessionDigComponent, {
       data: {
-        title: 'title11',
-        description: 'description11',
+        title:  this.sessionDataSource.data[index]['title'],
+        description: this.sessionDataSource.data[index]['description'],
         date: new Date(),
         specialistId: 1,
         sessionId: id,
@@ -246,13 +246,15 @@ export class SessionDigComponent implements OnInit{
     });
   }
   editSession(): void {
-    console.log(this.sessionData.date);
-    const editSession = { title: this.sessionData.title, description: this.sessionData.description, date: this.sessionData.date};
-    this.httpDataService.editSession(editSession, 1, this.sessionId).subscribe((response: any) => {
+    console.log(this.sessionData.date, "Umde");
+    const editSession = { title: this.sessionData.title, description: this.sessionData.description, date: new Date()};
+    this.httpDataService.editSession(editSession, 1, this.sessionId)
+      .subscribe((response: any) => {
       console.log(response.content);
     });
   }
   deleteSession(): void{
-    this.httpDataService.deleteSession(1, this.sessionId).subscribe((response: any) => {});
+    this.httpDataService.deleteSession(1, this.sessionId)
+      .subscribe((response: any) => {});
   }
 }
