@@ -9,10 +9,13 @@
 
 <!--Toolbar -->
 <mat-toolbar color="primary">
+  <span class="example-spacer"></span>
   <span class="logo" (click)="setSelect(false)">Training Gain</span>
+  <span class="example-spacer"></span>
+  <button FxLayoutAlign="flex-end" class="button" (click)="logOut()">Cerrar Sesion</button>
 </mat-toolbar>
 <router-outlet></router-outlet>
-
+ 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
 <!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
