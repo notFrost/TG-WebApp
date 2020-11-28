@@ -25,6 +25,5 @@ export class AppComponent {
   logOut(): void {
     this.userStorageService.destroy()
     this.router.navigate(['/login']);
-
   }
 }

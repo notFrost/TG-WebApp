@@ -10,7 +10,7 @@ import {catchError, retry} from 'rxjs/operators';
 })
 export class HttpDataService {
   // Specialist Endpoint
-  basePath = 'http://opense-tg-api.herokuapp.com/api';
+  basePath = 'https://opense-tg-api.herokuapp.com/api';
   constructor(private http: HttpClient) { }
   // Http Default Options
   httpOptions = {
